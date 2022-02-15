@@ -42,6 +42,10 @@ def test_register_record_batches(ctx):
     assert result[0].column(0) == pa.array([5, 7, 9])
     assert result[0].column(1) == pa.array([-3, -3, -3])
 
+    result = ctx.sql("SELECT a from t union SELECT a from t")
+    result.show()
+    #print(result)
+
 
 def test_create_dataframe_registers_unique_table_name(ctx):
     # create a RecordBatch and register it as memtable

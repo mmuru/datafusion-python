@@ -179,3 +179,29 @@ def test_struct_select(struct_df):
 
     assert result.column(0) == pa.array([5, 7, 9])
     assert result.column(1) == pa.array([-3, -3, -3])
+
+
+def test_union():
+    ctx = ExecutionContext()
+
+    batch = pa.RecordBatch.from_arrays(
+        [pa.array([1, 2, 3]), pa.array([4, 5, 6])],
+        names=["a", "b"],
+    )
+    df = ctx.create_dataframe([[batch]])
+
+    batch = pa.RecordBatch.from_arrays(
+        [pa.array([1, 2, 3]), pa.array([4, 5, 6])],
+        names=["a", "b"],
+    )
+    df1 = ctx.create_dataframe([[batch]])
+
+    df = df.union(df1)
+    table = pa.Table.from_batches(df.collect())
+    print(table.to_pydict())
+
+    assert 1 == 1
+
+    #expected = {"a": [1, 2], "c": [8, 10], "b": [4, 5]}
+    #assert table.to_pydict() == expected
+

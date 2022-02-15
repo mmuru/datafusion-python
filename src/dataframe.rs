@@ -127,4 +127,9 @@ impl PyDataFrame {
             .join(right.df, join_type, &join_keys.0, &join_keys.1)?;
         Ok(Self::new(df))
     }
+
+    fn union(&self, other: PyDataFrame) -> PyResult<Self> {
+        let df = self.df.union(other.df)?;
+        Ok(Self::new(df))
+    }
 }

@@ -133,9 +133,7 @@ Bootstrap:
 
 ```bash
 # fetch this repo
-git clone git@github.com:apache/arrow-datafusion.git
-# change to python directory
-cd arrow-datafusion/python
+git clone git@github.com:datafusion-contrib/datafusion-python.git
 # prepare development environment (used to build wheel / install in development)
 python3 -m venv venv
 # activate the venv
@@ -150,6 +148,7 @@ Whenever rust code changes (your changes or via `git pull`):
 
 ```bash
 # make sure you activate the venv using "source venv/bin/activate" first
+# make sure Cargo version is 1.58 and rustc is 1.58.1
 maturin develop
 python -m pytest
 ```
